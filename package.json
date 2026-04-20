@@ -1,0 +1,18 @@
+{
+  "name": "estudos-poo",
+  "version": "1.0.0",
+  "main": "src/main.ts",
+  "scripts": {
+    "start": "node --watch --import=tsx ./src/main.ts"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

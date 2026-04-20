@@ -1,0 +1,25 @@
+### Rota V1
+@v1 = http://localhost:3000/api/v1/users
+
+### Criando usuário
+POST  {{v1}}/
+Content-Type: application/json
+
+{
+  "id": "01",
+  "name": "Joãozin",
+  "email": "joomdeveloper.app@gmail.com",
+  "password": "123456"
+}
+
+### Busca de todos os usuários
+GET {{v1}}
+
+### Busca por usuário especifico
+GET {{v1}}/1
+
+### Atualizar usuário
+PUT {{v1}}/2
+
+### Deletando usuário
+DELETE {{v1}}/3
