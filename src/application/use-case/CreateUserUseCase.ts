@@ -2,7 +2,7 @@ import { User } from "../../Domen/Entity/User.js"
 import type { IUserRepository } from "../../Domen/repository/IUserRepository.js"
 import type { CreateUserUserDTO } from "../DTOs/CreateUserDTO.js"
 
-export class CreateUserUserCase {
+export class CreateUserUseCase {
   constructor(private repository: IUserRepository) {}
 
   async execute(dto: CreateUserUserDTO): Promise<User> {

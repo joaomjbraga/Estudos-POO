@@ -2,7 +2,7 @@ import { User } from "../../Domen/Entity/User.js";
 import type { IUserRepository } from "../../Domen/repository/IUserRepository.js";
 import type { EditUserDTO } from "../DTOs/EditUserDTO.js";
 
-export class UpdateUserUserCase {
+export class UpdateUserUseCase {
   constructor(private repository: IUserRepository) {}
 
   async execute(dto: EditUserDTO): Promise<boolean> {

@@ -1,6 +1,6 @@
 import type { IUserRepository } from "../../Domen/repository/IUserRepository.js";
 
-export class FindByidUserUserCase {
+export class FindByIdUserUseCase {
   constructor(private respository: IUserRepository) {}
 
   async execute(id: string) {

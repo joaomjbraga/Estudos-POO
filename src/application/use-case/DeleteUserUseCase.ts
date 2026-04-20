@@ -1,6 +1,6 @@
 import type { IUserRepository } from "../../Domen/repository/IUserRepository.js";
 
-export class DeleteUserUserCase {
+export class DeleteUserUseCase {
   constructor( private repository: IUserRepository) {}
 
   async execute(id: string): Promise<boolean> {

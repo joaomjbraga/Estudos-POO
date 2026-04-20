@@ -1,6 +1,9 @@
 ### Rota V1
 @v1 = http://localhost:3000/api/v1/users
 
+### id do Usuario
+@uuid-gerado = c60d30b8-6b4a-449d-b8c3-9400e8b8daec
+
 ### Criando usuário
 POST  {{v1}}/
 Content-Type: application/json
@@ -15,16 +18,16 @@ Content-Type: application/json
 GET {{v1}}
 
 ### Busca por usuário especifico (substitua pelo UUID gerado na criação)
-GET {{v1}}/<uuid-gerado>
+GET {{v1}}/{{uuid-gerado}}
 
 ### Atualizar usuário (substitua pelo UUID gerado na criação)
-PUT {{v1}}/<uuid-gerado>
+PUT {{v1}}/{{uuid-gerado}}
 Content-Type: application/json
 
 {
-  "name": "João atualizado",
+  "name": "João M",
   "email": "joao.novo@example.com"
 }
 
 ### Deletando usuário (substitua pelo UUID gerado na criação)
-DELETE {{v1}}/<uuid-gerado>
+DELETE {{v1}}/{{uuid-gerado}}

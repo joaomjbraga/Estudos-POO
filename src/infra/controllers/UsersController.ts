@@ -2,11 +2,11 @@ import { randomUUID } from "crypto";
 import { type Request, type Response } from "express";
 import { CreateUserUserDTO } from "../../application/DTOs/CreateUserDTO.js";
 import { EditUserDTO } from "../../application/DTOs/EditUserDTO.js";
-import { CreateUserUserCase } from "../../application/use-case/CreateUser-UserCase.js";
-import { DeleteUserUserCase } from "../../application/use-case/DeleteUser-UserCase.js";
-import { FindByidUserUserCase } from "../../application/use-case/FindByidUser-UserCase.js";
-import { GetAllUserUserCase } from "../../application/use-case/GetAllUser-UserCase.js";
-import { UpdateUserUserCase } from "../../application/use-case/UpdateUser-UserCase.js";
+import { CreateUserUseCase } from "../../application/use-case/CreateUserUseCase.js";
+import { DeleteUserUseCase } from "../../application/use-case/DeleteUserUseCase.js";
+import { FindByIdUserUseCase } from "../../application/use-case/FindByIdUserUseCase.js";
+import { GetAllUserUseCase } from "../../application/use-case/GetAllUserUseCase.js";
+import { UpdateUserUseCase } from "../../application/use-case/UpdateUserUseCase.js";
 import { UserRepositoryInMemory } from "../repository/UserRepositoryInMemory.js";
 
 export class UserController {
@@ -16,13 +16,13 @@ export class UserController {
   }
 
   async getAllUsers(_: Request, res: Response) {
-    const useCase = new GetAllUserUserCase(this.repository);
+    const useCase = new GetAllUserUseCase(this.repository);
     const users = await useCase.execute();
     return res.status(200).json(users);
   }
 
   async createUser(req: Request, res: Response) {
-    const useCase = new CreateUserUserCase(this.repository);
+    const useCase = new CreateUserUseCase(this.repository);
     const dto = new CreateUserUserDTO(
       randomUUID(),
       req.body.name,
@@ -39,7 +39,7 @@ export class UserController {
       return res.status(400).json({ message: "ID inválido" });
     }
     try {
-      const useCase = new FindByidUserUserCase(this.repository);
+      const useCase = new FindByIdUserUseCase(this.repository);
       const user = await useCase.execute(id);
       return res.status(200).json(user);
     } catch (error: any) {
@@ -54,7 +54,7 @@ export class UserController {
     }
     try {
       const dto = new EditUserDTO(id, req.body.name, req.body.email);
-      const useCase = new UpdateUserUserCase(this.repository);
+      const useCase = new UpdateUserUseCase(this.repository);
       await useCase.execute(dto);
       return res.status(200).json({ message: `Usuário ${id} atualizado.` });
     } catch (error: any) {
@@ -68,7 +68,7 @@ export class UserController {
       return res.status(400).json({ message: "ID inválido" });
     }
     try {
-      const useCase = new DeleteUserUserCase(this.repository);
+      const useCase = new DeleteUserUseCase(this.repository);
       await useCase.execute(id);
       return res.status(200).json({ message: `Usuário ${id} deletado.` });
     } catch (error: any) {
