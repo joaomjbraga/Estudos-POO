@@ -9,7 +9,6 @@ class User {
     name: string,
     email: string,
     password: string
-
   )
   {
     this._id = id
