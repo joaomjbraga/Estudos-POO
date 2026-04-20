@@ -6,20 +6,25 @@ POST  {{v1}}/
 Content-Type: application/json
 
 {
-  "id": "01",
   "name": "Joãozin",
-  "email": "joomdeveloper.app@gmail.com",
+  "email": "joao@example.com",
   "password": "123456"
 }
 
 ### Busca de todos os usuários
 GET {{v1}}
 
-### Busca por usuário especifico
-GET {{v1}}/1
+### Busca por usuário especifico (substitua pelo UUID gerado na criação)
+GET {{v1}}/<uuid-gerado>
 
-### Atualizar usuário
-PUT {{v1}}/2
+### Atualizar usuário (substitua pelo UUID gerado na criação)
+PUT {{v1}}/<uuid-gerado>
+Content-Type: application/json
 
-### Deletando usuário
-DELETE {{v1}}/3
+{
+  "name": "João atualizado",
+  "email": "joao.novo@example.com"
+}
+
+### Deletando usuário (substitua pelo UUID gerado na criação)
+DELETE {{v1}}/<uuid-gerado>

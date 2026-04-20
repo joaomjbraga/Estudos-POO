@@ -1,15 +1,16 @@
 import { Router } from "express"
 import { UserController } from "../controllers/UsersController.js"
 
+const userController = new UserController()
+
 export function CreateUserRoutes () {
   const routes = Router()
-  const userController = new UserController()
 
-  routes.get('/', userController.getAllUsers)
-  routes.post('/', userController.createUser)
-  routes.get('/:id', userController.getUserById)
-  routes.put('/:id', userController.updateUser)
-  routes.delete('/:id', userController.deleteUser)
+  routes.get('/', userController.getAllUsers.bind(userController))
+  routes.post('/', userController.createUser.bind(userController))
+  routes.get('/:id', userController.getUserById.bind(userController))
+  routes.put('/:id', userController.updateUser.bind(userController))
+  routes.delete('/:id', userController.deleteUser.bind(userController))
 
   return routes
 }

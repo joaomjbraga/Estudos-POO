@@ -38,9 +38,13 @@ export class UserController {
     if (!id || Array.isArray(id)) {
       return res.status(400).json({ message: "ID inválido" });
     }
-    const useCase = new FindByidUserUserCase(this.repository);
-    const user = await useCase.execute(id);
-    return res.status(200).json(user);
+    try {
+      const useCase = new FindByidUserUserCase(this.repository);
+      const user = await useCase.execute(id);
+      return res.status(200).json(user);
+    } catch (error: any) {
+      return res.status(404).json({ message: error.message });
+    }
   }
 
   async updateUser(req: Request, res: Response) {
@@ -48,10 +52,14 @@ export class UserController {
     if (!id || Array.isArray(id)) {
       return res.status(400).json({ message: "ID inválido" });
     }
-    const dto = new EditUserDTO(id, req.body.name, req.body.email);
-    const useCase = new UpdateUserUserCase(this.repository);
-    await useCase.execute(dto);
-    return res.json({ message: `Usuário ${id} atualizado.` });
+    try {
+      const dto = new EditUserDTO(id, req.body.name, req.body.email);
+      const useCase = new UpdateUserUserCase(this.repository);
+      await useCase.execute(dto);
+      return res.status(200).json({ message: `Usuário ${id} atualizado.` });
+    } catch (error: any) {
+      return res.status(404).json({ message: error.message });
+    }
   }
 
   async deleteUser(req: Request, res: Response) {
@@ -59,8 +67,12 @@ export class UserController {
     if (!id || Array.isArray(id)) {
       return res.status(400).json({ message: "ID inválido" });
     }
-    const useCase = new DeleteUserUserCase(this.repository);
-    await useCase.execute(id);
-    return res.json({ message: `Usuário ${id} deletado.` });
+    try {
+      const useCase = new DeleteUserUserCase(this.repository);
+      await useCase.execute(id);
+      return res.status(200).json({ message: `Usuário ${id} deletado.` });
+    } catch (error: any) {
+      return res.status(404).json({ message: error.message });
+    }
   }
 }
