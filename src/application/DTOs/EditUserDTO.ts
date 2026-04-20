@@ -1,8 +1,6 @@
-export class EditUserDTO {
-  constructor(
-    public id: string,
-    public name: string,
-    public email: string,
-  ) {}
+export interface EditUserDTO {
+  id: string
+  name: string
+  email: string
 }
 

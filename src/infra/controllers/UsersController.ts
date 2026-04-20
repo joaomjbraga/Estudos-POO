@@ -1,7 +1,8 @@
 import { randomUUID } from "crypto";
 import { type Request, type Response } from "express";
-import { CreateUserUserDTO } from "../../application/DTOs/CreateUserDTO.js";
-import { EditUserDTO } from "../../application/DTOs/EditUserDTO.js";
+import type { CreateUserUserDTO } from "../../application/DTOs/CreateUserDTO.js";
+import type { EditUserDTO } from "../../application/DTOs/EditUserDTO.js";
+import { AppError } from "../../Domen/errors/AppError.js";
 import { CreateUserUseCase } from "../../application/use-case/CreateUserUseCase.js";
 import { DeleteUserUseCase } from "../../application/use-case/DeleteUserUseCase.js";
 import { FindByIdUserUseCase } from "../../application/use-case/FindByIdUserUseCase.js";
@@ -23,12 +24,12 @@ export class UserController {
 
   async createUser(req: Request, res: Response) {
     const useCase = new CreateUserUseCase(this.repository);
-    const dto = new CreateUserUserDTO(
-      randomUUID(),
-      req.body.name,
-      req.body.email,
-      req.body.password,
-    )
+    const dto: CreateUserUserDTO = {
+      id: randomUUID(),
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    }
     const user = await useCase.execute(dto);
     return res.status(201).json({ message: `Usuário ${user.name} criado com sucesso!` });
   }
@@ -43,7 +44,8 @@ export class UserController {
       const user = await useCase.execute(id);
       return res.status(200).json(user);
     } catch (error: any) {
-      return res.status(404).json({ message: error.message });
+      const statusCode = error instanceof AppError ? error.statusCode : 500
+      return res.status(statusCode).json({ message: error.message });
     }
   }
 
@@ -53,12 +55,17 @@ export class UserController {
       return res.status(400).json({ message: "ID inválido" });
     }
     try {
-      const dto = new EditUserDTO(id, req.body.name, req.body.email);
+      const dto: EditUserDTO = {
+      id,
+      name: req.body.name,
+      email: req.body.email,
+    }
       const useCase = new UpdateUserUseCase(this.repository);
       await useCase.execute(dto);
       return res.status(200).json({ message: `Usuário ${id} atualizado.` });
     } catch (error: any) {
-      return res.status(404).json({ message: error.message });
+      const statusCode = error instanceof AppError ? error.statusCode : 500
+      return res.status(statusCode).json({ message: error.message });
     }
   }
 
@@ -72,7 +79,8 @@ export class UserController {
       await useCase.execute(id);
       return res.status(200).json({ message: `Usuário ${id} deletado.` });
     } catch (error: any) {
-      return res.status(404).json({ message: error.message });
+      const statusCode = error instanceof AppError ? error.statusCode : 500
+      return res.status(statusCode).json({ message: error.message });
     }
   }
 }
