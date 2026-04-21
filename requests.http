@@ -7,7 +7,7 @@
 ### Criando usuário
 POST  {{v1}}/
 Content-Type: application/json
-
+    
 {
   "name": "Joãozin",
   "email": "joao@example.com",
